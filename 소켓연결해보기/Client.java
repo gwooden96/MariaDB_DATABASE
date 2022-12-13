@@ -1,4 +1,4 @@
-package 소켓연결;
+package 소켓연결해보기;
 
 import java.io.InputStream;
 import java.io.OutputStream;
