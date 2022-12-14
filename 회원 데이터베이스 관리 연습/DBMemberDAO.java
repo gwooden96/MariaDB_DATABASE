@@ -58,6 +58,31 @@ public class MemberDAO {
 		}
 		return list;
 	}
+
+
+		//insert 삽입 메서드
+		public void insert(MemberVO vo) {
+		
+			try {
+				//PreparedStatement를 이용하면 기존에 난잡한 수식이 아닌 ? <--로 표기 가능
+				//괄호안에 ? 개수는 필드개수와 동일
+				String sql = "insert into member values(?, ?, ?)"; 
+				pstmt = conn.prepareStatement(sql);
+				
+				//vlaues(?, ?, ?) <-- 이 안에 어떤 값을 넣을지 설정
+				pstmt.setInt(1, vo.getMemberno());
+				pstmt.setString(2, vo.getId());
+				pstmt.setString(3, vo.getName());
+				
+				rs = pstmt.executeQuery(); //위에서 실행된 결과를 rs에 저장
+				System.out.println("회원 등록 성공!");
+				
+			} catch (Exception e) {
+				System.out.println("회원 등록 실패");
+				e.printStackTrace();
+			}
+			
+		}
 	
 
 }
