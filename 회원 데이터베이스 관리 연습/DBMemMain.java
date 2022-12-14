@@ -15,7 +15,7 @@ public class MemMain {
 		System.out.println("===회원관리 프로그램===");
 		
 		while(true) {
-			System.out.print("메뉴선택[1.회원목록 2.회원정보추가]");
+			System.out.print("메뉴선택[1.회원목록 2.회원정보추가 3.회원정보수정]");
 			menu = sc.nextInt();
 			
 			switch(menu) {
@@ -50,6 +50,25 @@ public class MemMain {
 					vo.setName(sc.next());
 					
 					dao.insert(vo);
+					break;
+
+
+
+					case 3 : //수정
+					vo = new MemberVO();
+					
+					System.out.println("회원 정보를 수정합니다.");
+					
+					System.out.println("회원 번호 수정 : ");
+					vo.setMemberno(sc.nextInt());
+					
+					System.out.println("회원 아이디 수정 : ");
+					vo.setId(sc.next());
+					
+					System.out.println("회원 이름 수정 : ");
+					vo.setName(sc.next());
+					
+					dao.update(vo);
 					break;
 
 
