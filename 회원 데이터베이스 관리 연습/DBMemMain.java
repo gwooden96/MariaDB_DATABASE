@@ -1,58 +1,61 @@
-package DBMember;
+package DB2;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
-public class MemberDAO {
-	
-	//PreparedStatement 기능확장 (재사용면에서 매우 편리함) / 단점으로는 코드가 길어짐
-	
-	Connection conn = null;
-	PreparedStatement pstmt = null; 
-	ResultSet rs = null;
-	
-	//생성자
-	public MemberDAO() {
-		try { //마리아db 데이터베이스에 연결
-			Class.forName("org.mariadb.jdbc.Driver");
-			
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/javadb", "root", "java1234");
-		} catch (Exception e) {
-			e.printStackTrace(); // Driver를 못 찾았을때 예외처리
-		}
-	}
-	
-	//메서드 생성
-	
-	//전체 레코드를 조회하는 메서드
-	public List<MemberVO> list() { //객체들을 보관하기 위한 List 컬렉션 생성 (추가, 삭제 등으로 위한 컬레션을 사용하는게 좋음)
-		List<MemberVO> list = new ArrayList<>(); //list에 담겨 있는 VO객체를 Main으로 보내 최종 작업
+public class MemMain {
+
+	public static void main(String[] args) {
 		
-		try {
-			String sql = "select * from member";
+		Scanner sc = new Scanner(System.in); //입력문
+		MemberDAO dao = new MemberDAO(); //DAO메서드를 가져다 쓰기 위해 객체 생성
+		int menu; //입력한 메뉴 번호 저장 변수
+		
+		System.out.println("===회원관리 프로그램===");
+		
+		while(true) {
+			System.out.print("메뉴선택[1.회원목록]");
+			menu = sc.nextInt();
 			
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery(); //
+			switch(menu) {
 			
-			while(rs.next()) {
-				MemberVO vo = new MemberVO(); //빈 객체를 위에 list에 넣어줄 려고
-				
-				//set으로 호출 -> get으로 값을 MemberVO 클래스에 값을 보내 보관
-				//VO 객체에 멤버변수가 저장
-				vo.setMemberno(rs.getInt("memberno")); 
-				vo.setId(rs.getString("id"));
-				vo.setName(rs.getString("name"));
-				
-				list.add(vo); //list에 다음값이 있을때 까지 반복해서 객체를 넣는다.
+				case 1: 
+					List<MemberVO> list = new ArrayList<>(); // return된 컬렉션을 저장하는 공간
+					list = dao.list(); // 메서드 호출 결과를 list에 저장
+					
+					//위 컬렉션을 이렇게 한번에 코드입력도 가능List<MemberVO> list = dao.list();
+					
+					for(int i = 0; i < list.size(); i++) {
+						System.out.print("번호 : " + list.get(i).getMemberno() + "\t");
+						System.out.print("아이디 : " + list.get(i).getId() + "\t");
+						System.out.println("이름 : " + list.get(i).getName());
+						
+					}
+					break;
+
+
+					case 2 : //추가
+					MemberVO vo = new MemberVO(); //객체 생성
+					
+					System.out.println("회원 등록을 시작합니다.");
+					
+					System.out.println("회원 번호 : ");
+					vo.setMemberno(sc.nextInt());
+					
+					System.out.println("회원 아이디 : ");
+					vo.setId(sc.next());
+					
+					System.out.println("회원 이름 : ");
+					vo.setName(sc.next());
+					
+					dao.insert(vo);
+					break;
+
+					
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
-		return list;
+
 	}
 
 }
