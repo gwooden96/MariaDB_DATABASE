@@ -15,7 +15,7 @@ public class MemMain {
 		System.out.println("===회원관리 프로그램===");
 		
 		while(true) {
-			System.out.print("메뉴선택[1.회원목록]");
+			System.out.print("메뉴선택[1.회원목록 2.회원정보추가]");
 			menu = sc.nextInt();
 			
 			switch(menu) {
@@ -52,7 +52,7 @@ public class MemMain {
 					dao.insert(vo);
 					break;
 
-					
+
 			}
 		}
 
