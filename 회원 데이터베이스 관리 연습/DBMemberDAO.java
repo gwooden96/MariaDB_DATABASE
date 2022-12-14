@@ -110,6 +110,31 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 	}
+
+
+
+		//delete 삭제 메서드
+
+		public void delete(MemberVO vod) {
+		
+			try { //DELETE FROM member WHERE memberno=2
+				String sql = "delete from member where memberno=?"; 
+				pstmt = conn.prepareStatement(sql);
+				
+			
+				pstmt.setInt(1, vod.getMemberno());
+				
+				
+				rs = pstmt.executeQuery(); //위에서 실행된 결과를 rs에 저장
+				System.out.println("회원 정보 삭제 완료!");
+				
+		
+				
+			} catch (Exception e) {
+				System.out.println("회원 정보 삭제 오류");
+				e.printStackTrace();
+			}
+		}
 	
 
 }
