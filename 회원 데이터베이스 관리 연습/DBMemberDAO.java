@@ -83,6 +83,33 @@ public class MemberDAO {
 			}
 			
 		}
+
+
+
+			//update 수정 메서드
+	
+	public void update(MemberVO vo) {
+		
+		try { //UPDATE member SET id='qwer' WHERE memberno=1
+			String sql = "update member set id=?, name=? where memberno=?"; 
+			pstmt = conn.prepareStatement(sql);
+			
+		
+			pstmt.setString(1, vo.getId());
+			pstmt.setString(2, vo.getName());
+			pstmt.setInt(3, vo.getMemberno());
+			
+			
+			rs = pstmt.executeQuery(); //위에서 실행된 결과를 rs에 저장
+			System.out.println("회원 정보 수정 완료!");
+			
+	
+			
+		} catch (Exception e) {
+			System.out.println("회원 정보 수정 오류");
+			e.printStackTrace();
+		}
+	}
 	
 
 }
