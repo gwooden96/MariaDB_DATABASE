@@ -135,6 +135,48 @@ public class MemberDAO {
 				e.printStackTrace();
 			}
 		}
+
+
+
+		//select 조회 메서드
+	//pstmt = conn.prepareStatement(spl);   //데이터 베이스로 spl를 보냄 spl은 위에 입력된 코드
+		
+	public List<MemberVO> select(int no) {
+		List<MemberVO> list = new ArrayList<>(); //select 저장용 컬레션
+		
+		try { //select 필드명, 필드명, from 테이블명
+			String sql = "select * from member where memberno=?"; 
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, no);
+			
+
+			
+			rs = pstmt.executeQuery(); //위에서 실행된 결과를 rs에 저장
+			
+			while(rs.next()) {
+				MemberVO vo = new MemberVO();
+				vo.setMemberno(rs.getInt("memberno"));
+				vo.setId(rs.getString("id"));
+				vo.setId(rs.getString("name"));
+				
+				list.add(vo);
+				
+				
+			}
+			
+			System.out.println("회원 정보 조회 완료!");
+			
+			
+		} catch (Exception e) {
+			System.out.println("회원 정보 조회 오류");
+			e.printStackTrace();
+		}
+		
+		return list;
+		
+
+	}
 	
 
 }
