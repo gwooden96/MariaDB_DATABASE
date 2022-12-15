@@ -15,7 +15,7 @@ public class MemMain {
 		System.out.println("===회원관리 프로그램===");
 		
 		while(true) {
-			System.out.print("메뉴선택[1.회원목록 2.회원정보추가 3.회원정보수정 4.회원정보삭제]");
+			System.out.print("메뉴선택[1.전체회원목록보기 2.회원정보추가 3.회원정보수정 4.회원정보삭제 5.회원정보찾기]");
 			menu = sc.nextInt();
 			
 			switch(menu) {
@@ -82,6 +82,27 @@ public class MemMain {
 					
 					dao.delete(vod);
 					break;
+
+					case 5 : //조회
+					
+					
+					System.out.println("회원 정보를 조회합니다.");
+					
+					System.out.println("조회할 회원 번호 : ");
+					List<MemberVO> sList = dao.select(sc.nextInt());
+					
+					for(int i = 0; i < sList.size(); i++) {
+						
+						System.out.print("번호 : " + sList.get(i).getMemberno() + "\t");
+						System.out.print("아이디 : " + sList.get(i).getId() + "\t");
+						System.out.println("이름 : " + sList.get(i).getName());
+						
+					}
+					break;
+
+
+					default :    
+					System.out.println("잘 못 입력하셨습니다.");
 
 
 			}
