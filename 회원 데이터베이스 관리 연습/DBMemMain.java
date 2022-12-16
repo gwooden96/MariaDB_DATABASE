@@ -15,8 +15,13 @@ public class MemMain {
 		System.out.println("===회원관리 프로그램===");
 		
 		while(true) {
-			System.out.print("메뉴선택[1.전체회원목록보기 2.회원정보추가 3.회원정보수정 4.회원정보삭제 5.회원정보찾기]");
+			System.out.print("메뉴선택[1.회원목록   2.회원등록  3.회원정보수정  4.회원정보삭제  5.회원정보조회  6.프로그램종료]");
 			menu = sc.nextInt();
+			
+			if(menu == 6) {
+				System.out.println("프로그램을 종료 합니다.");
+				break;
+			}
 			
 			switch(menu) {
 			
